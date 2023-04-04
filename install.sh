@@ -51,13 +51,17 @@ sudo crontab mycron
 sudo rm mycron
 
 crontab -l > mycron
-echo "@reboot  rm lock-upload.pid" >> mycron
+echo "@reboot  rm .lock-upload.pid" >> mycron
 echo "*/2 * * * * sh upload.sh" >> mycron
+echo "@hourly sh check_transmission.sh" >> mycron
 echo "@daily sh clean_transmission.sh" >> mycron
 echo "#clean up folders" >> mycron
-echo "*/10 * * * * find complete -type d -empty -delete" >> mycron
+
 echo "*/10 * * * * find /mnt/c/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
 echo "*/10 * * * * find /mnt/c/* -type d -empty -delete" >> mycron
+
+echo "*/10 * * * * find /mnt/r/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
+echo "*/10 * * * * find /mnt/r/* -type d -empty -delete" >> mycron
 crontab mycron
 rm mycron
 
