@@ -1,15 +1,29 @@
 #!/bin/bash
+
+SERVICE="transmission-daemon"
 YY=2023
-MM=04
-tput setaf 2; echo "Checking duplicate process"
-PIDFILE=~/.lock_upload.pid
+MM=05
+PIDFILE=~/lock_upload.pid
+
+tput setaf 2; echo "Checking transmission crash"
+
+if pidof -x "$SERVICE" > /dev/null
+then
+    echo "$SERVICE is running"
+else
+    echo "$SERVICE stopped and now restarting"
+    sudo service transmission-daemon restart
+    sleep 5
+    sh /home/vm2k23q2/clean_transmission.sh
+fi
+tput setaf 2; echo "Checking rclone running"
 if [ -f $PIDFILE ]
 then
   PID=$(cat $PIDFILE)
   ps -p $PID > /dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    tput setaf 1; echo "Process already running"
+    tput setaf 1; echo "rclone already running"
     exit 1
   else
     ## Process not found assume not running
