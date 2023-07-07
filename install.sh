@@ -7,10 +7,10 @@ sudo chown $USER:$USER /mnt/
 sudo chmod 755 /mnt/
 sudo mkdir /mnt/c
 sudo mkdir /mnt/i
-sudo mkdir /mnt/r
+
 sudo chmod 775 /mnt/c
 sudo chmod 775 /mnt/i
-sudo chmod 775 /mnt/r
+
 
 
 sudo apt-get update
@@ -37,10 +37,10 @@ sudo adduser $USER debian-transmission
 
 sudo chown -R $USER:debian-transmission /mnt/c
 sudo chown -R $USER:debian-transmission /mnt/i
-sudo chown -R $USER:debian-transmission /mnt/r
+
 sudo ln -s /mnt/c /home/$USER/complete
 sudo ln -s /mnt/i /home/$USER/incomplete
-sudo ln -s /mnt/r /home/$USER/rarbg
+
 
 
 
@@ -60,8 +60,6 @@ echo "#clean up folders" >> mycron
 echo "*/10 * * * * find /mnt/c/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
 echo "*/10 * * * * find /mnt/c/* -type d -empty -delete" >> mycron
 
-echo "*/10 * * * * find /mnt/r/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
-echo "*/10 * * * * find /mnt/r/* -type d -empty -delete" >> mycron
 crontab mycron
 rm mycron
 
