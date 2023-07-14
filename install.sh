@@ -20,6 +20,28 @@ sudo apt-get -y install nano
 sudo apt-get -y install bmon
 sudo apt-get -y install screen
 sudo apt-get -y install cron
+sudo apt-get -y install rename
+sudo apt-get -y install python3-venv
+
+python3 -m venv ~/flexget/
+cd ~/flexget/
+bin/pip install flexget
+source ~/flexget/bin/activate
+pip install transmission-rpc -U
+cd $home
+
+curl https://rclone.org/install.sh | sudo bash
+wget https://raw.githubusercontent.com/lledyl/Public/master/config.yml -O config.yml
+wget https://raw.githubusercontent.com/lledyl/Public/master/helpcommands.txt -O help.txt
+crontab -l > mycron
+echo "#*/30 * * * * ~/flexget/bin/flexget execute" >> mycron
+crontab mycron
+rm mycron
+
+
+
+
+
 curl https://rclone.org/install.sh | sudo bash
 mkdir /home/$USER/.config
 mkdir /home/$USER/.config/rclone
@@ -51,12 +73,10 @@ sudo crontab mycron
 sudo rm mycron
 
 crontab -l > mycron
-echo "@reboot  rm .lock-upload.pid" >> mycron
+echo "@reboot  rm lock_upload.pid" >> mycron
 echo "*/2 * * * * sh upload.sh" >> mycron
-echo "@hourly sh check_transmission.sh" >> mycron
 echo "@daily sh clean_transmission.sh" >> mycron
 echo "#clean up folders" >> mycron
-
 echo "*/10 * * * * find /mnt/c/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
 echo "*/10 * * * * find /mnt/c/* -type d -empty -delete" >> mycron
 
