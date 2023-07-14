@@ -2,7 +2,7 @@
 
 SERVICE="transmission-daemon"
 YY=2023
-MM=05
+MM=07
 PIDFILE=~/lock_upload.pid
 
 tput setaf 2; echo "Checking transmission crash"
@@ -13,8 +13,6 @@ then
 else
     echo "$SERVICE stopped and now restarting"
     sudo service transmission-daemon restart
-    sleep 5
-    sh /home/vm2k23q2/clean_transmission.sh
 fi
 tput setaf 2; echo "Checking rclone running"
 if [ -f $PIDFILE ]
