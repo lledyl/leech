@@ -47,7 +47,6 @@ tput setaf 7;
 rclone move complete/ gdisk1:$YY/$YY-$MM/  --transfers 2  --min-age 61s --include-from .filter.txt --size-only --delete-empty-src-dirs   --log-file=.suke1.log --drive-stop-on-upload-limit -P
 rclone move complete/ gdisk2:$YY/$YY-$MM/  --transfers 2  --min-age 61s --include-from .filter.txt --size-only --delete-empty-src-dirs   --log-file=.suke2.log --drive-stop-on-upload-limit
 rclone move complete/ gdisk3:$YY/$YY-$MM/  --transfers 2  --min-age 61s --include-from .filter.txt --size-only --delete-empty-src-dirs   --log-file=.suke3.log --drive-stop-on-upload-limit
-rclone move complete/ gdisk4:$YY/$YY-$MM/  --transfers 2  --min-age 61s --include-from .filter.txt --size-only --delete-empty-src-dirs   --log-file=.suke4.log --drive-stop-on-upload-limit
 
 tput setaf 2; echo "Delete lock file"
 rm $PIDFILE
