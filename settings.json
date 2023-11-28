@@ -20,7 +20,7 @@
     "encryption": 1,
     "idle-seeding-limit": 0,
     "idle-seeding-limit-enabled": true,
-    "incomplete-dir": "/content/tmp/",
+    "incomplete-dir": "/content/",
     "incomplete-dir-enabled": true,
     "lpd-enabled": false,
     "max-peers-global": 100,
