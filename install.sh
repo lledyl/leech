@@ -4,11 +4,6 @@
 sudo apt-get update
 sudo apt-get -y install wget
 sudo apt-get -y install unzip
-sudo apt-get -y install nano
-sudo apt-get -y install bmon
-sudo apt-get -y install screen
-sudo apt-get -y install cron
-
 
 cd $home
 sudo apt-get -y install transmission-cli  transmission-daemon
@@ -19,25 +14,27 @@ curl -s https://raw.githubusercontent.com/lledyl/leech/main/filter.txt --output 
 sudo mv settings.json /etc/transmission-daemon/settings.json
 sudo ln -s /etc/transmission-daemon/settings.json /home/$USER/settings
 
+sudo mkdir -p /content/downloads/
+sudo chown $USER:$USER /content/downloads/
+sudo chmod 755 /content/downloads/
+sudo mkdir /content/downloads/c
+sudo mkdir /content/downloads/i
+
+sudo chmod 775 /content/downloads/c
+sudo chmod 775 /content/downloads/i
+sudo usermod -a -G debian-transmission $USER
+sudo adduser $USER debian-transmission
 
 
-sudo crontab -l > mycron
-sudo echo "@reboot sudo mount -o discard,defaults /dev/sdb /mnt/" >> mycron
-sudo crontab mycron
-sudo rm mycron
+sudo chown -R $USER:debian-transmission /content/downloads/c
+sudo chown -R $USER:debian-transmission /content/downloads/i
 
-crontab -l > mycron
-echo "@reboot  rm lock_upload.pid" >> mycron
-echo "*/2 * * * * sh upload.sh" >> mycron
-echo "@daily sh clean_transmission.sh" >> mycron
-echo "#clean up folders" >> mycron
-echo "*/10 * * * * find /mnt/c/* -type f \( -name \*.exe -o -name \*.jpg  -o -name \*.html  -o -name \*.htm  -o -name \*.nfo -o -name \*.mht -o -name \*.jpeg -o -name \*.png -o -name \*.chm -o -name \*.nfo -o -name \*.apk -o -name \*.url -o -name \*.lnk -o -name \*.txt \) -delete" >> mycron
-echo "*/10 * * * * find /mnt/c/* -type d -empty -delete" >> mycron
+sudo ln -s /content/downloads/c /home/$USER/complete
+sudo ln -s /content/downloads/i /home/$USER/incomplete
 
-crontab mycron
-rm mycron
-
-cd $home
-wget https://gist.githubusercontent.com/pawelszydlo/e2e1fc424f2c9d306f3a/raw/c26087d4b4f696bd373b02c0e294fb92dec1039a/transmission_remove_finished.sh -O transmission_remove_finished.sh
-mv transmission_remove_finished.sh clean_transmission.sh
-
+cd /usr/share/transmission/
+sudo wget https://github.com/Secretmapper/combustion/archive/release.zip -O release.zip
+sudo unzip -o release.zip
+sudo mv web web_orig
+sudo mv combustion-release/ web
+sudo rm release.zip
