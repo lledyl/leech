@@ -4,7 +4,7 @@ echo "Installing Requirements"
 #sudo apt-get update -y &> /dev/null
 sudo apt-get -y install wget -y &> /dev/null
 sudo apt-get -y install unzip -y &> /dev/null
-clear
+
 
 echo "Installing Transmission"
 cd $home
@@ -13,7 +13,7 @@ sudo service transmission-daemon stop
 curl -s https://raw.githubusercontent.com/lledyl/leech/main/settings.json --output settings.json
 sudo mv settings.json /etc/transmission-daemon/settings.json
 sudo ln -s /etc/transmission-daemon/settings.json /home/$USER/settings
-clear
+
 
 echo "Setting up Folders"
 sudo mkdir -p /content/downloads/
@@ -29,11 +29,11 @@ sudo chown -R root:root /content/downloads/complete
 sudo chown -R root:root /content/downloads/incomplete
 
 sudo service transmission-daemon stop
-clear
+
 sudo sed -i 's/USER=debian-transmission/USER=root/g' /etc/init.d/transmission-daemon
-clear
+
 sudo service transmission-daemon start
-clear
+
 
 echo "Installing Combustion"
 cd /usr/share/transmission/
@@ -42,4 +42,4 @@ sudo unzip -o release.zip
 sudo mv web web_orig
 sudo mv combustion-release/ web
 sudo rm release.zip
-clear
+echo "Done"
