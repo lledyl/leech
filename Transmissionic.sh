@@ -37,9 +37,9 @@ sudo service transmission-daemon start
 
 echo "Installing Combustion"
 cd /usr/share/transmission/
-sudo wget https://github.com/Secretmapper/combustion/archive/release.zip -O release.zip
+sudo wget https://github.com/6c65726f79/Transmissionic/archive/refs/heads/main.zip -O release.zip
 sudo unzip -o release.zip
 sudo mv web web_orig
-sudo mv combustion-release/ web
+#sudo mv combustion-release/ web
 sudo rm release.zip
 echo "Done"
