@@ -35,11 +35,10 @@ sudo sed -i 's/USER=debian-transmission/USER=root/g' /etc/init.d/transmission-da
 sudo service transmission-daemon start
 
 
-echo "Installing Combustion"
-cd /usr/share/transmission/
+echo "Installing Transmissionic"
 sudo wget https://github.com/6c65726f79/Transmissionic/releases/download/v1.8.0/Transmissionic-webui-v1.8.0.zip -O release.zip
 sudo unzip -o release.zip
-sudo mv web web_orig
-#sudo mv combustion-release/ web
+sudo mv /usr/share/transmission/web /usr/share/transmission/web_orig
+sudo mv web/ /usr/share/transmission/
 sudo rm release.zip
 echo "Done"
